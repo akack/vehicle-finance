@@ -1,0 +1,18 @@
+.container {
+    margin-top: 5em;
+}
+
+#back-image {
+    background-size: contain;
+    background-repeat: no-repeat;
+   border: lightgrey 1px solid;
+   border-radius: 5px;
+   p{
+        font-size: 20px;
+        border-bottom: lightgrey 1px solid;
+        margin-top: 1em;
+   }
+   h4 {
+       text-transform: uppercase;
+   }
+}

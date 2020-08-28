@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "VehicleFinaceCalculator"
+    }
+  },
+  "defaultProject": "VehicleFinaceCalculator",
+  "cli": {
+    "analytics": "d025808d-799a-4b73-8289-ef0a4d908d64"
+  }
 }
