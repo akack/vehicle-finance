@@ -9,11 +9,6 @@ import (
 	"github.com/rs/cors"
 )
 
-//Item is a struct
-type Item struct {
-	Data string
-}
-
 //Loan struct to capture all the needed information
 type Loan struct {
 	Amount                   float32
@@ -44,8 +39,6 @@ func main() {
 	}
 
 	log.Fatal(srv.ListenAndServe())
-
-	// http.ListenAndServe(":8000", router)
 }
 
 func calculateVehicleFinance(w http.ResponseWriter, r *http.Request) {
@@ -65,5 +58,4 @@ func calculateVehicleFinance(w http.ResponseWriter, r *http.Request) {
 	loan = append(loan, newItem)
 
 	json.NewEncoder(w).Encode(newItem)
-	// json.NewEncoder(w).Encode(loan)
 }
