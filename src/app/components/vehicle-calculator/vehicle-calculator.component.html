@@ -1,5 +1,10 @@
 <div class="container">
-    <p *ngIf="exceed">Deposit is more than the actual Price of Vehicle</p>
+    <div *ngIf="exceed" class="alert alert-warning" role="alert">
+      Deposit is more/equal to the actual Price of Vehicle!    
+    </div>
+    <div *ngIf="isRateOrPeriodZero" class="alert alert-warning" role="alert">
+      Interest Rate and Payment Terms can not be Zero!
+    </div>
     <div class="row">
         <div class="col" id="back-image">
         <h4>Vehicle Finance Calculator</h4>
