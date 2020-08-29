@@ -31,7 +31,7 @@ export class VehicleCalculatorComponent implements OnInit {
   //Helper variables
   public exceed = false;
   public isRateOrPeriodZero = false;
-  
+
   constructor(private vehicleService: VehicleCalculatorService) { }
 
   ngOnInit(): void {
@@ -53,6 +53,7 @@ export class VehicleCalculatorComponent implements OnInit {
       Deposit: Number(this.vehicleData.Deposit),
       BalloonPaymentPercentage: Number(this.vehicleData.BalloonPaymentPercentage)
     }
+    
     //Checking if the deposit is not greater than the price of vehicle
     if (data.Amount > data.Deposit && data.Amount != data.Deposit) {
       this.exceed = false;
