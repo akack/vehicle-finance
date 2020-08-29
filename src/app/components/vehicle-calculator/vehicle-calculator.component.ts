@@ -40,8 +40,7 @@ export class VehicleCalculatorComponent implements OnInit {
   }
 
   submitData() {
-
-   
+    //Converting string values to numbers
     let data = {
       Amount: Number(this.vehicleData.Amount),
       Period: Number(this.vehicleData.Period),
@@ -49,12 +48,13 @@ export class VehicleCalculatorComponent implements OnInit {
       Deposit: Number(this.vehicleData.Deposit),
       BalloonPaymentPercentage: Number(this.vehicleData.BalloonPaymentPercentage)
     }
-
+    //Checking if the deposit is not greater than the price of vehicle
     if(data.Amount > data.Deposit) {
       this.exceed = false;
       this.vehicleService.calculateVehicleFinance(data)
       .subscribe(
         res => {
+          console.log(res)
           this.result = {
             Amount: res.Amount,
             Period:res.Period,
@@ -73,7 +73,5 @@ export class VehicleCalculatorComponent implements OnInit {
     }else {
       this.exceed = true;
     }
-   
   }
-
 }
