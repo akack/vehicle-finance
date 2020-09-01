@@ -5,7 +5,7 @@ import 'rxjs/rx';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/observable/of';
  
-
+import { Loan } from "./models/loan.model";
 import { HttpClient } from '@angular/common/http';
 
 
@@ -17,7 +17,7 @@ export class VehicleCalculatorService {
   constructor(private http: HttpClient) { }
 
   calculateVehicleFinance(data) {
-    return this.http.post<any>(`${environment.serverUrl}/calculateVehicleFinance`, data).pipe(
+    return this.http.post<Loan>(`${environment.serverUrl}/calculateVehicleFinance`, data).pipe(
       map(response => response));
   }
 }

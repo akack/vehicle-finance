@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VehicleCalculatorService } from 'src/app/vehicle-calculator.service';
+import { Loan } from "../../models/loan.model";
 
 @Component({
   selector: 'app-vehicle-calculator',
@@ -7,26 +8,12 @@ import { VehicleCalculatorService } from 'src/app/vehicle-calculator.service';
   styleUrls: ['./vehicle-calculator.component.scss']
 })
 export class VehicleCalculatorComponent implements OnInit {
-
-  public vehicleData = {
-    Amount: 0,
-    Period: 0,
-    InterestRate : 0,
-    Deposit: 0,
-    BalloonPaymentPercentage: 0
-  }
-
-  public result  = {
-    Amount: 0,
-    Period: 0,
-    InterestRate : 0,
-    Deposit: 0,
-    BalloonPaymentPercentage: 0,
-    BalloonPaymentAmount: 0,
-    TotalAmountToPay: 0,
-    MonthlyPayment: 0
-  };
+  //Decal
+  public vehicleData: Loan;
+  isRateOrPeriodZero = false;
+  public result: Loan;
   public exceed = false;
+
   constructor(private vehicleService: VehicleCalculatorService) { }
 
   ngOnInit(): void {
@@ -36,6 +23,19 @@ export class VehicleCalculatorComponent implements OnInit {
       InterestRate: 0,
       Deposit: 0,
       BalloonPaymentPercentage: 0,
+      BalloonPaymentAmount: 0,
+      MonthlyPayment: 0,
+      TotalAmountToPay: 0
+    }
+    this.result = {
+      Amount: 0,
+      Period: 0,
+      InterestRate: 0,
+      Deposit: 0,
+      BalloonPaymentPercentage: 0,
+      BalloonPaymentAmount: 0,
+      MonthlyPayment: 0,
+      TotalAmountToPay: 0
     }
   }
 
@@ -49,29 +49,30 @@ export class VehicleCalculatorComponent implements OnInit {
       BalloonPaymentPercentage: Number(this.vehicleData.BalloonPaymentPercentage)
     }
     //Checking if the deposit is not greater than the price of vehicle
-    if(data.Amount > data.Deposit) {
+    if(data.InterestRate == 0 || data.Period == 0) {
+      this.isRateOrPeriodZero = true;
+      setTimeout(() => {
+        this.isRateOrPeriodZero = false;
+        }, 3000);
+    }
+    else if(data.Amount > data.Deposit) {
       this.exceed = false;
       this.vehicleService.calculateVehicleFinance(data)
       .subscribe(
         res => {
           console.log(res)
-          this.result = {
-            Amount: res.Amount,
-            Period:res.Period,
-            InterestRate : res.InterestRate,
-            Deposit: res.Deposit,
-            BalloonPaymentPercentage: res.BalloonPaymentPercentage,
-            BalloonPaymentAmount: res.BalloonPaymentAmount,
-            TotalAmountToPay: res.TotalAmountToPay,
-            MonthlyPayment: res.MonthlyPayment
-          };
+          this.result = res;
         },
         err=> {
           console.log("err", err)
         }
       );
-    }else {
+    }
+    else {
       this.exceed = true;
+      setTimeout(() => {
+        this.exceed = false;
+        }, 3000);
     }
   }
 }
