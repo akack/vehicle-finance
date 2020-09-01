@@ -52,7 +52,8 @@ func calculateVehicleFinance(w http.ResponseWriter, r *http.Request) {
 	newItem.BalloonPaymentAmount = newItem.Amount * (newItem.BalloonPaymentPercentage / 100)
 	newItem.Amount = newItem.Amount - newItem.Deposit
 	newItem.Amount = newItem.Amount - newItem.BalloonPaymentAmount
-	newItem.MonthlyPayment = (newItem.Amount) / ((((1 + (newItem.InterestRate / 100)) * newItem.Period) - 1) / ((newItem.InterestRate / 100) * (1 + (newItem.InterestRate / 100)) * newItem.Period))
+	newItem.InterestRate = newItem.InterestRate / 100
+	newItem.MonthlyPayment = (newItem.Amount) / ((((1 + newItem.InterestRate) * newItem.Period) - 1) / (newItem.InterestRate * (1 + newItem.InterestRate) * newItem.Period))
 	newItem.TotalAmountToPay = newItem.MonthlyPayment * newItem.Period
 
 	// loan = append(loan, newItem)
